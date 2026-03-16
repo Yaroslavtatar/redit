@@ -423,12 +423,21 @@ a:hover {
 /* ==== Расширенный (современный) режим оформления ==== */
 
 body.theme-advanced {
-  background: radial-gradient(circle at top, #e0edff 0, #f3f4f6 55%, #e5e7eb 100%);
+  /* Тёмный сероватый фон, похожий на Reddit Dark */
+  background-color: #0b1416;
+  color: #e5e7eb;
 }
 
 body.theme-advanced .site-header {
-  background: rgba(15, 23, 42, 0.9);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+  background: #1a1a1b;
+  border-bottom: 1px solid #343536;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+body.theme-advanced .site-footer {
+  background-color: #1a1a1b;
+  border-top: 1px solid #343536;
+  color: #9ca3af;
 }
 
 body.theme-advanced .logo a {
@@ -441,17 +450,23 @@ body.theme-advanced .site-main {
 
 body.theme-advanced .hero {
   border-radius: 20px;
-  border: 1px solid rgba(129, 140, 248, 0.25);
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.04), rgba(59, 130, 246, 0.1));
+  border: 1px solid #343536;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(15, 23, 42, 0.9));
+  color: #e5e7eb;
+}
+
+body.theme-advanced .hero-subtitle {
+  color: #cbd5f5;
 }
 
 body.theme-advanced .post-card,
 body.theme-advanced .auth-card {
   border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
+  border: 1px solid #343536;
+  background-color: #1a1a1b;
   box-shadow:
-    0 18px 40px rgba(15, 23, 42, 0.18),
-    0 0 0 1px rgba(15, 23, 42, 0.02);
+    0 18px 40px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(15, 23, 42, 0.4);
 }
 
 body.theme-advanced .post-meta,
@@ -459,6 +474,36 @@ body.theme-advanced .comments-login-hint {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  color: #9ca3af;
+}
+
+body.theme-advanced .comments-empty {
+  color: #6b7280;
+}
+
+body.theme-advanced .posts-empty {
+  color: #9ca3af;
+}
+
+body.theme-advanced .comment-item {
+  border-bottom-color: #343536;
+}
+
+body.theme-advanced .auth-subtitle,
+body.theme-advanced .form-help {
+  color: #9ca3af;
+}
+
+body.theme-advanced input,
+body.theme-advanced textarea {
+  background-color: #151617;
+  border-color: #343536;
+  color: #e5e7eb;
+}
+
+body.theme-advanced input::placeholder,
+body.theme-advanced textarea::placeholder {
+  color: #6b7280;
 }
 
 body.theme-advanced .btn-primary {
@@ -468,6 +513,13 @@ body.theme-advanced .btn-primary {
 
 body.theme-advanced .btn-vote {
   border-radius: 999px;
+  background-color: #272729;
+  color: #e5e7eb;
+}
+
+body.theme-advanced .btn-vote:hover {
+  background-color: #3b82f6;
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {
