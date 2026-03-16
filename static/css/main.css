@@ -38,6 +38,12 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background-color: var(--bg-body);
   color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
 }
 
 a {
@@ -120,6 +126,7 @@ a:hover {
 /* Основная область контента */
 .site-main {
   padding: 2rem 0 3rem;
+  flex: 1 0 auto;
 }
 
 /* Подвал */
@@ -129,6 +136,11 @@ a:hover {
   font-size: 0.85rem;
   color: var(--text-muted);
   background-color: #ffffff;
+  flex-shrink: 0;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .site-footer .muted {
@@ -139,9 +151,11 @@ a:hover {
 .hero {
   background-color: var(--bg-card);
   border-radius: var(--radius-lg);
-  padding: 2rem 1.75rem;
+  padding: 2rem 2rem;
   box-shadow: var(--shadow-soft);
   border: 1px solid var(--border-soft);
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .hero-title {
@@ -152,8 +166,11 @@ a:hover {
 
 .hero-subtitle {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 40rem;
+  font-size: 0.98rem;
 }
 
 .hero-list {
@@ -187,6 +204,11 @@ a:hover {
   padding: 1.25rem 1.5rem;
   box-shadow: var(--shadow-soft);
   border: 1px solid var(--border-soft);
+   transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .post-card-header {
@@ -310,6 +332,11 @@ a:hover {
   padding: 2rem 1.75rem;
   box-shadow: var(--shadow-soft);
   border: 1px solid var(--border-soft);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .auth-card h1 {
@@ -457,6 +484,19 @@ body.theme-advanced .hero {
 
 body.theme-advanced .hero-subtitle {
   color: #cbd5f5;
+}
+
+body.theme-advanced .post-title,
+body.theme-advanced .post-excerpt,
+body.theme-advanced .post-content,
+body.theme-advanced .comment-content {
+  color: #e5e7eb;
+}
+
+body.theme-advanced .post-meta,
+body.theme-advanced .post-author,
+body.theme-advanced .post-date {
+  color: #9ca3af;
 }
 
 body.theme-advanced .post-card,
