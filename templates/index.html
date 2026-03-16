@@ -1,0 +1,61 @@
+{#
+  templates/index.html
+  --------------------
+  Главная страница CREDDIT.
+
+  На первом этапе здесь просто приветственный текст, который подтверждает,
+  что:
+  - Flask-приложение запущено;
+  - шаблоны подключены корректно;
+  - базовый стиль применён.
+
+  Позже мы превратим эту страницу в ленту постов с голосами и ссылками
+  на полные версии.
+ #}
+{% extends "base.html" %}
+
+{% block title %}CREDDIT — главная{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <h1 class="hero-title">CREDDIT — мини‑реддит на Flask</h1>
+    <p class="hero-subtitle">
+      Ниже вы увидите список последних постов. Создайте учётную запись,
+      чтобы публиковать свои темы и обсуждать их с другими.
+    </p>
+  </section>
+
+  {% if posts %}
+    <section class="posts-list">
+      {% for post in posts %}
+        <article class="post-card">
+          <header class="post-card-header">
+            <h2 class="post-title">
+              <a href="{{ url_for('post_detail', post_id=post.id) }}">
+                {{ post.title }}
+              </a>
+            </h2>
+            <p class="post-meta">
+              Автор:
+              <span class="post-author">{{ post.username }}</span>
+              <span class="post-date">{{ post.created_at }}</span>
+              ·
+              <span class="post-score">
+                Рейтинг: <span data-score="{{ post.id }}">{{ post.score }}</span>
+              </span>
+            </p>
+          </header>
+          <p class="post-excerpt">
+            {{ post.content[:200] }}{% if post.content|length > 200 %}...{% endif %}
+          </p>
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p class="posts-empty">
+      Пока постов нет. Будьте первым — зарегистрируйтесь и создайте свой
+      первый пост!
+    </p>
+  {% endif %}
+{% endblock %}
+

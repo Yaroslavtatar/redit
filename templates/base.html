@@ -1,0 +1,98 @@
+{# 
+  templates/base.html
+  -------------------
+  Базовый шаблон (layout) для всех страниц CREDDIT.
+
+  Идея:
+  - В этом файле мы описываем общую HTML-структуру (doctype, <head>, шапка,
+    подвал, подключение CSS и JS).
+  - Конкретные страницы (главная, логин, пост и т.п.) будут "наследоваться"
+    от этого шаблона и заполнять специальные блоки (block content и др.).
+
+  Такой подход:
+  - уменьшает количество дублирования кода;
+  - упрощает изменение дизайна (меняем шапку в одном месте);
+  - делает структуру проекта более понятной.
+ #}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}CREDDIT — мини Reddit на Flask{% endblock %}</title>
+
+    {# 
+      Подключаем основной файл стилей.
+      Функция url_for('static', filename='...') генерирует корректный URL
+      до файла в папке static/. Это лучше, чем писать относительные пути
+      руками, т.к. Flask сам подставляет правильный префикс.
+     #}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <div class="logo">
+          <a href="{{ url_for('index') }}">CREDDIT</a>
+        </div>
+        <nav class="main-nav">
+          {# 
+            Ссылки навигации:
+            - Главная страница ленты постов;
+            - Создание поста (пока маршрут будет добавлен позже);
+            - Блок аутентификации: в зависимости от того, залогинен ли
+              пользователь, показываем либо \"Вход/Регистрация\", либо
+              \"Выйти\".
+           #}
+          <a href="{{ url_for('index') }}">Главная</a>
+
+          {% if session.get("user_id") %}
+            <a href="{{ url_for('create_post') }}">Создать пост</a>
+          {% endif %}
+
+          <span class="nav-separator">|</span>
+
+          {% if session.get("user_id") %}
+            <span class="nav-username">
+              {{ session.get("username") }}
+            </span>
+            <a href="{{ url_for('logout') }}">Выйти</a>
+          {% else %}
+            <a href="{{ url_for('login') }}">Вход</a>
+            <a href="{{ url_for('register') }}">Регистрация</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <div class="container">
+        {# 
+          Этот блок будет переопределяться в дочерних шаблонах.
+          Именно сюда страницы вставляют своё уникальное содержимое.
+         #}
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          CREDDIT — учебный мини‑Reddit на Flask.
+          <span class="muted">Сделано для практики HTML, CSS, JS и Python.</span>
+        </p>
+      </div>
+    </footer>
+
+    {# 
+      Подключаем основной JavaScript-файл.
+      Сейчас он может быть почти пустым, но дальше мы добавим туда
+      логику голосования и другие небольшие фронтенд‑фичи.
+     #}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
+

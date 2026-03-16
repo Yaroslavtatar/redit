@@ -1,0 +1,60 @@
+{#
+  templates/create_post.html
+  --------------------------
+  Страница создания нового поста.
+
+  Доступна только авторизованным пользователям:
+  - проверка будет выполняться в обработчике маршрута (в app.py);
+  - если пользователь не залогинен, его перенаправят на страницу входа.
+ #}
+{% extends "base.html" %}
+
+{% block title %}CREDDIT — создать пост{% endblock %}
+
+{% block content %}
+  <section class="auth-card">
+    <h1>Создать новый пост</h1>
+    <p class="auth-subtitle">
+      Поделитесь ссылкой, вопросом или мыслями с сообществом CREDDIT.
+    </p>
+
+    {% if error %}
+      <div class="alert alert-error">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    <form method="post" class="auth-form">
+      <div class="form-group">
+        <label for="title">Заголовок</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          required
+          maxlength="200"
+          placeholder="Коротко опишите суть поста"
+        />
+        <p class="form-help">
+          Чем точнее заголовок, тем проще другим понять, о чём пост.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="content">Текст поста</label>
+        <textarea
+          id="content"
+          name="content"
+          rows="6"
+          required
+          placeholder="Опишите детали, задайте вопрос или поделитесь ссылками."
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Опубликовать пост
+      </button>
+    </form>
+  </section>
+{% endblock %}
+

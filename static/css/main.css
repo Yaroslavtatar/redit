@@ -1,0 +1,408 @@
+:root {
+  /* 
+    CSS‑переменные (custom properties).
+
+    Мы выносим основные цвета в отдельные переменные, чтобы:
+    - быстро настраивать палитру во всём приложении;
+    - сделать код более читаемым (видно, что за цвет отвечает за что);
+    - упростить возможное добавление тёмной темы в будущем.
+  */
+  --blue-main: #2563eb; /* основной синий (акцент, кнопки, ссылки) */
+  --blue-main-dark: #1d4ed8; /* более тёмный оттенок для hover‑состояний */
+  --blue-main-light: #dbeafe; /* очень светлый синий для фона блоков */
+
+  --bg-body: #f3f4f6; /* общий фон страницы (серовато‑белый) */
+  --bg-card: #ffffff; /* фон карточек/контейнеров */
+
+  --text-main: #111827; /* основной цвет текста */
+  --text-muted: #6b7280; /* приглушённый текст (подписи, второстепенное) */
+
+  --border-soft: #e5e7eb; /* мягкие границы и разделители */
+
+  --shadow-soft: 0 10px 15px rgba(15, 23, 42, 0.08);
+
+  --radius-lg: 12px;
+  --radius-md: 8px;
+}
+
+/* Базовая типографика и обнуление некоторых стилей браузера */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+}
+
+a {
+  color: var(--blue-main);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--blue-main-dark);
+  text-decoration: underline;
+}
+
+/* Простой центрирующий контейнер с максимальной шириной */
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Шапка сайта с логотипом и навигацией */
+.site-header {
+  background: linear-gradient(90deg, var(--blue-main-dark), var(--blue-main));
+  color: #ffffff;
+  box-shadow: var(--shadow-soft);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+}
+
+.logo a {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.main-nav a {
+  margin-left: 1rem;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+}
+
+.main-nav a:hover {
+  color: #ffffff;
+}
+
+.nav-separator {
+  margin-left: 1rem;
+  margin-right: 0.25rem;
+  opacity: 0.6;
+  color: #e5e7eb;
+}
+
+.nav-username {
+  margin-left: 1rem;
+  font-weight: 500;
+}
+
+/* Основная область контента */
+.site-main {
+  padding: 2rem 0 3rem;
+}
+
+/* Подвал */
+.site-footer {
+  border-top: 1px solid var(--border-soft);
+  padding: 1rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background-color: #ffffff;
+}
+
+.site-footer .muted {
+  opacity: 0.8;
+}
+
+/* Блок приветствия на главной (hero) */
+.hero {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.hero-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.hero-subtitle {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.hero-list {
+  padding-left: 1.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.hero-note {
+  margin: 0;
+  font-style: italic;
+  color: var(--blue-main-dark);
+}
+
+/* Лента постов на главной */
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.posts-empty {
+  margin-top: 1.5rem;
+  color: var(--text-muted);
+}
+
+.post-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.post-card-header {
+  margin-bottom: 0.75rem;
+}
+
+.post-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+}
+
+.post-title a {
+  color: inherit;
+}
+
+.post-meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.post-author {
+  font-weight: 500;
+}
+
+.post-date {
+  margin-left: 0.5rem;
+}
+
+.post-excerpt {
+  margin: 0.5rem 0 0;
+  color: var(--text-main);
+}
+
+.post-score {
+  margin-left: 0.5rem;
+}
+
+.post-vote-section {
+  margin-top: 1rem;
+}
+
+.post-vote-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.btn-vote {
+  background-color: var(--blue-main-light);
+  color: var(--blue-main-dark);
+}
+
+.btn-vote:hover {
+  background-color: var(--blue-main);
+  color: #ffffff;
+}
+
+/* Комментарии */
+.comments-section {
+  margin-top: 2rem;
+}
+
+.comments-title {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.comments-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.comment-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.comment-meta {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.comment-author {
+  font-weight: 500;
+}
+
+.comment-date {
+  margin-left: 0.5rem;
+}
+
+.comment-content {
+  margin: 0;
+}
+
+.comments-empty {
+  margin: 0 0 1.5rem 0;
+  color: var(--text-muted);
+}
+
+.comment-form-card {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.comments-login-hint {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Карточки для форм логина/регистрации */
+.auth-card {
+  max-width: 420px;
+  margin: 0 auto;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.auth-card h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.auth-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  font: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--blue-main);
+  box-shadow: 0 0 0 1px var(--blue-main-light);
+}
+
+.form-help {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.auth-switch {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.auth-switch a {
+  font-weight: 500;
+}
+
+/* Простые стили для сообщений об ошибке */
+.alert {
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.alert-error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+/* Базовые стили для кнопок */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.btn-primary {
+  background-color: var(--blue-main);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--blue-main-dark);
+}
+
+/* Небольшая адаптивность: на узких экранах уменьшаем отступы и шрифты */
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav {
+    margin-top: 0.5rem;
+  }
+
+  .hero {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+}
+

@@ -1,0 +1,119 @@
+{#
+  templates/post_detail.html
+  --------------------------
+  Страница детального просмотра одного поста.
+
+  Здесь мы:
+  - показываем заголовок, автора, дату создания;
+  - отображаем полный текст поста;
+  - позже добавим:
+    - блок с голосами (рейтинг, кнопки лайк/дизлайк);
+    - список комментариев;
+    - форму добавления комментария.
+ #}
+{% extends "base.html" %}
+
+{% block title %}CREDDIT — {{ post.title }}{% endblock %}
+
+{% block content %}
+  <article class="post-card">
+    <header class="post-card-header">
+      <h1 class="post-title">{{ post.title }}</h1>
+      <p class="post-meta">
+        Опубликовано пользователем
+        <span class="post-author">{{ post.username }}</span>
+        <span class="post-date">{{ post.created_at }}</span>
+        ·
+        <span class="post-score">
+          Рейтинг:
+          <span id="post-score" data-post-id="{{ post.id }}">{{ post.score }}</span>
+        </span>
+      </p>
+    </header>
+
+    <div class="post-content">
+      {# 
+        Для простоты мы выводим текст как есть.
+        В реальных проектах часто добавляют поддержку Markdown
+        или другого формата разметки.
+       #}
+      <p>{{ post.content }}</p>
+    </div>
+  </article>
+
+  <section class="post-vote-section">
+    <div class="post-vote-buttons" data-post-id="{{ post.id }}">
+      <button type="button" class="btn btn-vote" data-value="1">
+        👍 Лайк
+      </button>
+      <button type="button" class="btn btn-vote" data-value="-1">
+        👎 Дизлайк
+      </button>
+    </div>
+    <p class="post-vote-hint">
+      Голосовать могут только авторизованные пользователи. Повторное
+      нажатие той же кнопки не изменит рейтинг, а противоположная кнопка
+      поменяет ваш голос.
+    </p>
+  </section>
+
+  <section class="comments-section">
+    <h2 class="comments-title">
+      Комментарии ({{ comments|length }})
+    </h2>
+
+    {% if comments %}
+      <ul class="comments-list">
+        {% for comment in comments %}
+          <li class="comment-item">
+            <p class="comment-meta">
+              <span class="comment-author">{{ comment.username }}</span>
+              <span class="comment-date">{{ comment.created_at }}</span>
+            </p>
+            <p class="comment-content">{{ comment.content }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="comments-empty">
+        Пока нет ни одного комментария. Начните обсуждение!
+      </p>
+    {% endif %}
+
+    {% if session.get("user_id") %}
+      <section class="comment-form-card">
+        <h3>Оставить комментарий</h3>
+
+        {% if error %}
+          <div class="alert alert-error">
+            {{ error }}
+          </div>
+        {% endif %}
+
+        <form method="post" action="{{ url_for('add_comment', post_id=post.id) }}" class="auth-form">
+          <div class="form-group">
+            <label for="comment-content">Текст комментария</label>
+            <textarea
+              id="comment-content"
+              name="content"
+              rows="4"
+              required
+              placeholder="Добавьте своё мнение или задайте уточняющий вопрос."
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Отправить комментарий
+          </button>
+        </form>
+      </section>
+    {% else %}
+      <p class="comments-login-hint">
+        Чтобы оставить комментарий, пожалуйста,
+        <a href="{{ url_for('login') }}">войдите</a> или
+        <a href="{{ url_for('register') }}">зарегистрируйтесь</a>.
+      </p>
+    {% endif %}
+  </section>
+{% endblock %}
+

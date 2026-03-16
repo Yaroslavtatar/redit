@@ -1,0 +1,80 @@
+{#
+  templates/register.html
+  -----------------------
+  Страница регистрации нового пользователя в CREDDIT.
+
+  Важные моменты:
+  - Это обычная HTML-форма, отправляющая данные методом POST на маршрут
+    /register (обработчик мы опишем в app.py).
+  - Мы используем наследование от base.html, чтобы сохранить общий
+    внешний вид (шапка, подвал, стили).
+  - Поля формы снабжены подписями и небольшими подсказками.
+ #}
+{% extends "base.html" %}
+
+{% block title %}CREDDIT — регистрация{% endblock %}
+
+{% block content %}
+  <section class="auth-card">
+    <h1>Регистрация</h1>
+    <p class="auth-subtitle">
+      Создайте учётную запись, чтобы публиковать посты, оставлять
+      комментарии и голосовать.
+    </p>
+
+    {# 
+      Если при обработке формы произошла ошибка (например, имя занято),
+      мы выведем сообщение об ошибке через переменную error, которую
+      передаст контроллер (Python-код).
+     #}
+    {% if error %}
+      <div class="alert alert-error">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    <form method="post" class="auth-form">
+      <div class="form-group">
+        <label for="username">Имя пользователя</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          required
+          minlength="3"
+          maxlength="32"
+          placeholder="например, blue_developer"
+        />
+        <p class="form-help">
+          Имя должно быть уникальным. Разрешены буквы, цифры и подчёркивания.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          minlength="6"
+          placeholder="минимум 6 символов"
+        />
+        <p class="form-help">
+          Для учебного проекта этого достаточно, но в реальной жизни
+          используйте более сложные пароли.
+        </p>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Создать аккаунт
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      Уже есть аккаунт?
+      <a href="{{ url_for('login') }}">Войдите здесь</a>.
+    </p>
+  </section>
+{% endblock %}
+
