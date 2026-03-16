@@ -32,7 +32,7 @@
       href="{{ url_for('static', filename='css/main.css') }}"
     />
   </head>
-  <body>
+  <body class="theme-simple">
     <header class="site-header">
       <div class="container header-content">
         <div class="logo">
@@ -64,6 +64,23 @@
             <a href="{{ url_for('login') }}">Вход</a>
             <a href="{{ url_for('register') }}">Регистрация</a>
           {% endif %}
+
+          <div class="theme-toggle" aria-label="Выбор режима интерфейса">
+            <button
+              type="button"
+              class="btn btn-toggle"
+              data-theme="simple"
+            >
+              Простая
+            </button>
+            <button
+              type="button"
+              class="btn btn-toggle"
+              data-theme="advanced"
+            >
+              Современная
+            </button>
+          </div>
         </nav>
       </div>
     </header>

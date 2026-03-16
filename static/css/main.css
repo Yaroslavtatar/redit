@@ -79,10 +79,19 @@ a:hover {
   text-decoration: none;
 }
 
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .main-nav a {
-  margin-left: 1rem;
   color: #e5e7eb;
   font-size: 0.95rem;
+}
+
+.main-nav a + a {
+  margin-left: 0.5rem;
 }
 
 .main-nav a:hover {
@@ -99,6 +108,13 @@ a:hover {
 .nav-username {
   margin-left: 1rem;
   font-weight: 500;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
 }
 
 /* Основная область контента */
@@ -384,6 +400,92 @@ a:hover {
 
 .btn-primary:hover {
   background-color: var(--blue-main-dark);
+}
+
+.btn-toggle {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  background-color: transparent;
+  color: #e5e7eb;
+  border-radius: 999px;
+  border: 1px solid rgba(209, 213, 219, 0.5);
+}
+
+.btn-toggle:hover {
+  background-color: rgba(15, 23, 42, 0.15);
+}
+
+.btn-toggle-active {
+  background-color: #ffffff;
+  color: var(--blue-main-dark);
+}
+
+/* ==== Расширенный (современный) режим оформления ==== */
+
+body.theme-advanced {
+  background: radial-gradient(circle at top, #e0edff 0, #f3f4f6 55%, #e5e7eb 100%);
+}
+
+body.theme-advanced .site-header {
+  background: rgba(15, 23, 42, 0.9);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+body.theme-advanced .logo a {
+  font-size: 1.1rem;
+}
+
+body.theme-advanced .site-main {
+  padding-top: 2.5rem;
+}
+
+body.theme-advanced .hero {
+  border-radius: 20px;
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.04), rgba(59, 130, 246, 0.1));
+}
+
+body.theme-advanced .post-card,
+body.theme-advanced .auth-card {
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.18),
+    0 0 0 1px rgba(15, 23, 42, 0.02);
+}
+
+body.theme-advanced .post-meta,
+body.theme-advanced .comments-login-hint {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+body.theme-advanced .btn-primary {
+  border-radius: 999px;
+  padding-inline: 1.25rem;
+}
+
+body.theme-advanced .btn-vote {
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  body.theme-advanced .header-content {
+    align-items: flex-start;
+  }
+
+  body.theme-advanced .main-nav {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  body.theme-advanced .theme-toggle {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
 }
 
 /* Небольшая адаптивность: на узких экранах уменьшаем отступы и шрифты */

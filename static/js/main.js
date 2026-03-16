@@ -18,8 +18,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("CREDDIT frontend initialized.");
 
+  setupThemeToggle();
   setupVoting();
 });
+
+/**
+ * Переключатель тем: простая / современная.
+ *
+ * Мы используем:
+ * - data-атрибуты на кнопках (data-theme="simple" или "advanced");
+ * - класс на body: theme-simple или theme-advanced;
+ * - localStorage, чтобы запомнить выбор пользователя между перезагрузками.
+ */
+function setupThemeToggle() {
+  const buttons = Array.from(document.querySelectorAll(".btn-toggle"));
+  if (!buttons.length) return;
+
+  const body = document.body;
+  const STORAGE_KEY = "creddit-theme";
+
+  function applyTheme(theme) {
+    const safeTheme = theme === "advanced" ? "advanced" : "simple";
+
+    body.classList.remove("theme-simple", "theme-advanced");
+    body.classList.add(`theme-${safeTheme}`);
+
+    buttons.forEach((btn) => {
+      const t = btn.getAttribute("data-theme");
+      if (t === safeTheme) {
+        btn.classList.add("btn-toggle-active");
+      } else {
+        btn.classList.remove("btn-toggle-active");
+      }
+    });
+
+    try {
+      localStorage.setItem(STORAGE_KEY, safeTheme);
+    } catch {
+      // Если localStorage недоступен, просто игнорируем ошибку.
+    }
+  }
+
+  let initialTheme = "simple";
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "advanced" || stored === "simple") {
+      initialTheme = stored;
+    }
+  } catch {
+    // Если localStorage недоступен, оставляем тему по умолчанию.
+  }
+
+  applyTheme(initialTheme);
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const theme = btn.getAttribute("data-theme");
+      if (theme) {
+        applyTheme(theme);
+      }
+    });
+  });
+}
 
 /**
  * Настройка обработчиков голосования за пост.
